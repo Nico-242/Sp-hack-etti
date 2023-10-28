@@ -31,7 +31,7 @@ class handTracker():
                 h,w,c = image.shape
                 cx,cy = int(lm.x*w), int(lm.y*h)
                 lmlist.append([id,cx,cy])
-            if draw:
+            #if draw:
                 cv2.circle(image,(cx,cy), 15 , (255,0,255), cv2.FILLED)
 
         return lmlist
@@ -45,7 +45,17 @@ def main():
         image = tracker.handsFinder(image)
         lmList = tracker.positionFinder(image)
         if len(lmList) != 0:
-            print(lmList)
+            if (abs(lmList[8][2] - lmList[4][2]) < 40) and (abs(lmList[8][1] - lmList[4][1]) < 40):
+                #print(str(lmList[8])+ "\t" + str(lmList[4]))
+                print("INDEX")
+            elif (abs(lmList[12][2] - lmList[4][2]) < 40) and (abs(lmList[12][1] - lmList[4][1]) < 40):
+                print("MIDDLE")
+            elif (abs(lmList[16][2] - lmList[4][2]) < 40) and (abs(lmList[16][1] - lmList[4][1]) < 40):
+                print("RING")
+            elif (abs(lmList[20][2] - lmList[4][2]) < 40) and (abs(lmList[20][1] - lmList[4][1]) < 40):
+                print("PINKY")
+            else:
+                print("NOT TOUCHING")
 
         cv2.imshow("Video",image)
         cv2.waitKey(1)
