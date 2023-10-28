@@ -12,8 +12,8 @@ def gen_frames():  # generate frame by frame from camera
     tracker = handTracker()
 
     previousIndex = -1
-    touchTimes = [0,0,0,0]
-    touchFinger = ["Index","Middle","Ring","Pinky"]
+    touchTimes = [0,0,0,0,0]
+    touchFinger = ["Index","Middle","Ring","Pinky", "All"]
     while True:
         # Capture frame-by-frame
         success, image = camera.read()  # read the camera frame
@@ -24,7 +24,10 @@ def gen_frames():  # generate frame by frame from camera
             break
         else:
             if len(lmList) != 0:
-                if (abs(lmList[8][2] - lmList[4][2]) < 50) and (abs(lmList[8][1] - lmList[4][1]) < 50):
+                if ((abs(lmList[0][2] - lmList[8][2]) < 170) and (abs(lmList[0][1] - lmList[8][1]) < 170)) and ((abs(lmList[0][2] - lmList[12][2]) < 120) and (abs(lmList[0][1] - lmList[12][1]) < 120)) and ((abs(lmList[0][2] - lmList[16][2]) < 120) and (abs(lmList[0][1] - lmList[16][1]) < 120)) and ((abs(lmList[0][2] - lmList[20][2]) < 170) and (abs(lmList[0][1] - lmList[20][1]) < 170)):
+                    print("PALM")
+                    previousIndex = 4
+                elif (abs(lmList[8][2] - lmList[4][2]) < 50) and (abs(lmList[8][1] - lmList[4][1]) < 50):
                     print("INDEX")
                     previousIndex = 0
                 elif (abs(lmList[12][2] - lmList[4][2]) < 50) and (abs(lmList[12][1] - lmList[4][1]) < 50):
