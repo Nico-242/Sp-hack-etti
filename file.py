@@ -63,8 +63,8 @@ while True:
             for id, lm in enumerate(handLms.landmark):
                 h, w, c = image.shape
                 cx, cy = int(lm.x * w), int(lm.y * h)
-                if id == 20 :
-                    cv2.circle(image, (cx, cy), 25, (255, 0, 255), cv2.FILLED)
+                #if id == 20 :
+                cv2.circle(image, (cx, cy), 25, (255, 0, 255), cv2.FILLED)
 
             mpDraw.draw_landmarks(image, handLms, mpHands.HAND_CONNECTIONS)
     cv2.imshow("Output", image)
