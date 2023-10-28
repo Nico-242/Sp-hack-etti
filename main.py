@@ -40,22 +40,36 @@ def main():
     cap = cv2.VideoCapture(0)
     tracker = handTracker()
 
+    previousIndex = -1
+    touchTimes = [0,0,0,0]
+    touchFinger = ["Index","Middle","Ring","Pinky"]
+
     while True:
         success,image = cap.read()
         image = tracker.handsFinder(image)
         lmList = tracker.positionFinder(image)
         if len(lmList) != 0:
-            if (abs(lmList[8][2] - lmList[4][2]) < 40) and (abs(lmList[8][1] - lmList[4][1]) < 40):
-                #print(str(lmList[8])+ "\t" + str(lmList[4]))
-                print("INDEX")
-            elif (abs(lmList[12][2] - lmList[4][2]) < 40) and (abs(lmList[12][1] - lmList[4][1]) < 40):
-                print("MIDDLE")
-            elif (abs(lmList[16][2] - lmList[4][2]) < 40) and (abs(lmList[16][1] - lmList[4][1]) < 40):
-                print("RING")
-            elif (abs(lmList[20][2] - lmList[4][2]) < 40) and (abs(lmList[20][1] - lmList[4][1]) < 40):
-                print("PINKY")
+            if (abs(lmList[8][2] - lmList[4][2]) < 50) and (abs(lmList[8][1] - lmList[4][1]) < 50):
+                #print("INDEX")
+                previousIndex = 0
+            elif (abs(lmList[12][2] - lmList[4][2]) < 50) and (abs(lmList[12][1] - lmList[4][1]) < 50):
+                #print("MIDDLE")
+                previousIndex = 1
+            elif (abs(lmList[16][2] - lmList[4][2]) < 50) and (abs(lmList[16][1] - lmList[4][1]) < 50):
+                #print("RING")
+                previousIndex = 2
+            elif (abs(lmList[20][2] - lmList[4][2]) < 70) and (abs(lmList[20][1] - lmList[4][1]) < 70):
+                #print("PINKY")
+                previousIndex = 3
             else:
-                print("NOT TOUCHING")
+                if previousIndex >= 0:
+                    touchTimes[previousIndex]  = touchTimes[previousIndex] + 1
+                    print(touchFinger[previousIndex] + " finger touches: " + str(touchTimes[previousIndex]))
+
+                previousIndex = -1
+                #print("NOT TOUCHING")
+
+            
 
         cv2.imshow("Video",image)
         cv2.waitKey(1)
