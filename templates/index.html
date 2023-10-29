@@ -3,15 +3,77 @@
 <head>
     <title>Live Streaming Page</title>
     <style>
-        /* Add background color to the body */
-        body {
-            background-color: #E9EAEC; /* You can change the color code to your preference */
-        }
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
+}
 
-        /* Style the heading */
-        h3 {
-            color: #333; /* Text color */
-        }
+.content {
+    text-align: center;
+    margin-top: 100px;
+}
+
+h1, h3 {
+    color: #333;
+}
+
+#value {
+    color: #A4161A; /* Scarlet color */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+
+.content {
+    color: #f4f4f4;
+}
+
+.image-container1, .image-container2, .image-container3, .image-container4, .image-container5 {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    transition: background-image 0.5s;
+  }
+  
+  .image-container1 {
+    background-image: url('hand_images/finger_tap.PNG');
+  }
+
+  .image-container1:hover {
+    background-image: url('finger_tap.gif');
+  }
+  .image-container2 {
+    background-image: url('hand_images/hand_images/power_grip.PNG');
+  }
+
+  .image-container2:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/power_grip.gif');
+  }
+  .image-container3 {
+    background-image: url('hand_images/hand_images/wrist_flex.PNG');
+  }
+
+  .image-container3:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/wrist_flex.gif');
+  }
+  .image-container4 {
+    background-image: url('hand_images/hand_images/finger_strech.PNG');
+  }
+
+  .image-container4:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/finger_strech.gif');
+  }
+  .image-container5 {
+    background-image: url('hand_images/hand_images/thumb_strech.PNG');
+  }
+
+  .image-container5:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/thumb_strech.gif');
+  }
+
+
+
     </style>
 </head>
 <body>
@@ -24,6 +86,38 @@
         </div>
     </div>
 
+    <table border="1">
+        <tr>
+            <td></td>
+            <td class="image-container1"><img src = 'hand_images/finger_tap.PNG'></td>
+            <td id="dynamic-value1"></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td class="image-container2"></td>
+            <td id="dynamic-value2"></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td class="image-container3"></td>
+            <td id="dynamic-value3"></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td class="image-container4">Image 4</td>
+            <td id="dynamic-value4"></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td class="image-container5">Image 5</td>
+            <td id="dynamic-value5"></td>
+        </tr>
+    </table>
+
     <div class="content">
 
         <h1>Dynamic Value:</h1>
@@ -34,11 +128,17 @@
 
     <script>
 
-        function updateValue() {
-            fetch('/update')
-            .then(response => response.text())
-            .then(data => { document.getElementById('dynamic-value').innerText = data})
-        }
+       function updateValue() {
+        fetch('/update')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('dynamic-value1').innerText = data[1];
+        document.getElementById('dynamic-value2').innerText = data[3];
+        document.getElementById('dynamic-value3').innerText = data[5];
+        document.getElementById('dynamic-value4').innerText = data[7];
+        document.getElementById('dynamic-value5').innerText = data[9];
+    });
+}
         setInterval(updateValue, 1000)
     </script>
 
