@@ -26,3 +26,46 @@ body {
 .content {
     color: #f4f4f4;
 }
+
+.image-container1, .image-container2, .image-container3, .image-container4, .image-container5 {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    transition: background-image 0.5s;
+  }
+  
+  .image-container1 {
+    background-image: url('hand_images/hand_images/finger_tap.PGN');
+  }
+
+  .image-container1:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/finger_tap.gif');
+  }
+  .image-container2 {
+    background-image: url('hand_images/hand_images/power_grip.PNG');
+  }
+
+  .image-container2:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/power_grip.gif');
+  }
+  .image-container3 {
+    background-image: url('hand_images/hand_images/wrist_flex.PNG');
+  }
+
+  .image-container3:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/wrist_flex.gif');
+  }
+  .image-container4 {
+    background-image: url('hand_images/hand_images/finger_strech.PNG');
+  }
+
+  .image-container4:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/finger_strech.gif');
+  }
+  .image-container5 {
+    background-image: url('hand_images/hand_images/thumb_strech.PNG');
+  }
+
+  .image-container5:hover {
+    background-image: url('hand_gifs/hand_exercise_gif/thumb_strech.gif');
+  }
