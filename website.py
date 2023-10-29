@@ -4,6 +4,8 @@ import mediapipe as mp
 
 app = Flask(__name__)
 
+global touchTimes
+
 camera = cv2.VideoCapture(0)  # use 0 for web camera
 #  for cctv camera use rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' instead of camera
 # for local webcam use cv2.VideoCapture(0)
@@ -15,6 +17,7 @@ def gen_frames():  # generate frame by frame from camera
     previousIndex = -1
     touchTimes = [0,0,0,0,0]
     touchFinger = ["Finger Taps","Power Grip","Wrist Flex","Finger Stretch", "Thumb Stretch"]
+
     while True:
         # Capture frame-by-frame
         success, image = camera.read()  # read the camera frame
@@ -80,6 +83,10 @@ def index():
     """Video streaming home page."""
     return render_template('index.html')
 
+@app.route('/update')
+def get_update():
+    return str(touchTimes)
+
 class handTracker():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5,modelComplexity=1,trackCon=0.5):
         self.mode = mode
@@ -113,43 +120,6 @@ class handTracker():
                 cv2.circle(image,(cx,cy), 15 , (255,0,255), cv2.FILLED)
 
         return lmlist
-
-# def main():
-#     tracker = handTracker()
-
-#     previousIndex = -1
-#     touchTimes = [0,0,0,0]
-#     touchFinger = ["Index","Middle","Ring","Pinky"]
-
-#     while True:
-#         success,image = camera.read()
-#         image = tracker.handsFinder(image)
-#         lmList = tracker.positionFinder(image)
-        
-#         if len(lmList) != 0:
-#             if (abs(lmList[8][2] - lmList[4][2]) < 50) and (abs(lmList[8][1] - lmList[4][1]) < 50):
-#                 print("INDEX")
-#                 previousIndex = 0
-#             elif (abs(lmList[12][2] - lmList[4][2]) < 50) and (abs(lmList[12][1] - lmList[4][1]) < 50):
-#                 print("MIDDLE")
-#                 previousIndex = 1
-#             elif (abs(lmList[16][2] - lmList[4][2]) < 50) and (abs(lmList[16][1] - lmList[4][1]) < 50):
-#                 print("RING")
-#                 previousIndex = 2
-#             elif (abs(lmList[20][2] - lmList[4][2]) < 70) and (abs(lmList[20][1] - lmList[4][1]) < 70):
-#                 print("PINKY")
-#                 previousIndex = 3
-#             else:
-#                 if previousIndex >= 0:
-#                     touchTimes[previousIndex]  = touchTimes[previousIndex] + 1
-#                     print(touchFinger[previousIndex] + " finger touches: " + str(touchTimes[previousIndex]))
-
-#                 previousIndex = -1
-#                 print("NOT TOUCHING")
-#         gen_frames()
-#         cv2.imshow("Video", image)
-#         cv2.waitKey(1)
-
 
 if __name__ == '__main__':
     app.run()
