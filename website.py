@@ -4,7 +4,7 @@ import mediapipe as mp
 
 app = Flask(__name__)
 
-global touchTimes
+touchTimes = [0,0,0,0,0]
 
 camera = cv2.VideoCapture(0)  # use 0 for web camera
 #  for cctv camera use rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' instead of camera
@@ -15,7 +15,7 @@ def gen_frames():  # generate frame by frame from camera
 
     fingerTaps = 0
     previousIndex = -1
-    touchTimes = [0,0,0,0,0]
+    #touchTimes
     touchFinger = ["Finger Taps","Power Grip","Wrist Flex","Finger Stretch", "Thumb Stretch"]
 
     while True:
@@ -85,7 +85,7 @@ def index():
 
 @app.route('/update')
 def get_update():
-    return str(touchTimes)
+    return touchTimes
 
 class handTracker():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5,modelComplexity=1,trackCon=0.5):

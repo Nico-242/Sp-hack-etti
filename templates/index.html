@@ -34,13 +34,16 @@
 
     <script>
 
-        function gen_frames() {
+        function updateValue() {
 
             fetch('/update')
             .then(response => response.text())
-            .then(data => document.getElementById('dynamic-value').innerText = data)
+            .then(data => { document.getElementById('dynamic-value').innerText = data})
+            
 
         }
+
+        setInterval(updateValue, 1000)
     </script>
 
 </body>
