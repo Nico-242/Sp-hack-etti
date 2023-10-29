@@ -25,10 +25,10 @@ def gen_frames():  # generate frame by frame from camera
             break
         else:
             if len(lmList) != 0:
-                if ((abs(lmList[0][2] - lmList[8][2]) < 200) and (abs(lmList[0][1] - lmList[8][1]) < 200)) and ((abs(lmList[0][2] - lmList[12][2]) < 200) and (abs(lmList[0][1] - lmList[12][1]) < 200)) and ((abs(lmList[0][2] - lmList[16][2]) < 200) and (abs(lmList[0][1] - lmList[16][1]) < 200)) and ((abs(lmList[0][2] - lmList[20][2]) < 200) and (abs(lmList[0][1] - lmList[20][1]) < 200)):
+                if ((abs(lmList[0][2] - lmList[8][2]) < 100) and (abs(lmList[0][1] - lmList[8][1]) < 100)) and ((abs(lmList[0][2] - lmList[12][2]) < 100) and (abs(lmList[0][1] - lmList[12][1]) < 100)) and ((abs(lmList[0][2] - lmList[16][2]) < 100) and (abs(lmList[0][1] - lmList[16][1]) < 100)) and ((abs(lmList[0][2] - lmList[20][2]) < 100) and (abs(lmList[0][1] - lmList[20][1]) < 100)):
                     print("PALM")
                     previousIndex = 1
-                elif ((abs(lmList[8][1] - lmList[12][1]) > 120) and (abs(lmList[12][1] - lmList[16][1]) > 120) and (abs(lmList[16][1] - lmList[20][1]) > 120)):
+                elif ((abs(lmList[8][1] - lmList[12][1]) > 70) and (abs(lmList[12][1] - lmList[16][1]) > 70) and (abs(lmList[16][1] - lmList[20][1]) > 70)):
                     print("Finger Stretch")
                     previousIndex = 3
                 elif ((abs(lmList[4][2] - lmList[17][2]) < 50) and (abs(lmList[4][1] - lmList[17][1]) < 50)):

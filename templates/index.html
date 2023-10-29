@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Live Streaming Page</title>
+    <style>
+        /* Add background color to the body */
+        body {
+            background-color: #E9EAEC; /* You can change the color code to your preference */
+        }
+
+        /* Style the heading */
+        h3 {
+            color: #333; /* Text color */
+        }
+    </style>
+</head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8  offset-lg-2">
-                <h3 class="mt-5">Live Streaming</h3>
-                <img src="{{ url_for('video_feed') }}" width="100%">
+            <div class="col-lg-8 offset-lg-2">
+                <h3 class="mt-5">Physical Therapy!</h3>
+                <img src="{{ url_for('video_feed') }}" width="70%" alt="Live Video Stream">
             </div>
         </div>
     </div>
+
+    <div class="content">
+
+        <h1>Dynamic Value:</h1>
+        <p id="dynamic-value"></p>
+
+    </div>
+
+
+    <script>
+
+        function gen_frames() {
+
+            fetch('/update')
+            .then(response => response.text())
+            .then(data => document.getElementById('dynamic-value').innerText = data)
+
+        }
+    </script>
+
+
 </body>
+</html>
