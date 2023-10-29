@@ -5,7 +5,7 @@
     <style>
     body {
     font-family: Arial, sans-serif;
-    background-color: #e0e0e0;
+    background-color: #b7b7b7;
 }
 
 .content {
@@ -16,6 +16,7 @@
 h1, h3 {
     color: #333;
 }
+
 
 #value {
     color: #A4161A; /* Scarlet color */
@@ -30,46 +31,60 @@ h1, h3 {
 }
 
 .image-container1, .image-container2, .image-container3, .image-container4, .image-container5 {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background-size: cover;
     transition: background-image 0.5s;
   }
   
   .image-container1 {
-    background-image: url('../static/hand_images/finger_tap.PNG');
+    background-image: url('../static/hand_images/finger_tap.jpg');
   }
 
-  .image-container1:hover {
-    background-image: url('finger_tap.gif');
+  .image-container1 {
+    background-image: url('../static/hand_exercise_gif/finger_tap.gif');
+    background-position: center center;
+
   }
   .image-container2 {
-    background-image: url('../static/hand_images/power_grip.PNG');
+    background-image: url('../static/hand_images/power_grip.jpg');
   }
 
-  .image-container2:hover {
-    background-image: url('hand_gifs/hand_exercise_gif/power_grip.gif');
+  .image-container2 {
+    background-image: url('../static/hand_exercise_gif/power_grip.gif');
+    background-position: center center;
+
   }
+
   .image-container3 {
-    background-image: url('../static/hand_images/wrist_flex.PNG');
+    background-image: url('../static/hand_images/wrist_flex.jpg');
+    background-position: center center;
+
   }
 
-  .image-container3:hover {
-    background-image: url('hand_gifs/hand_exercise_gif/wrist_flex.gif');
+  .image-container3 {
+    background-image: url('../static/hand_exercise_gif/wrist_flex.gif');
   }
+
   .image-container4 {
-    background-image: url('../static/hand_images/finger_strech.PNG');
+    background-image: url('../static/hand_exercise_gif/finger_strech.gif');
+    
   }
 
-  .image-container4:hover {
-    background-image: url('hand_gifs/hand_exercise_gif/finger_strech.gif');
+  .image-container4 {
+    background-image: url('../static/hand_exercise_gif/finger_strech.gif');
+    background-position: center center;
+
   }
+
   .image-container5 {
-    background-image: url('../static/hand_images/thumb_strech.PNG');
+    background-image: url('../static/hand_images/thumb_strech.jpg');
   }
 
-  .image-container5:hover {
-    background-image: url('hand_gifs/hand_exercise_gif/thumb_strech.gif');
+  .image-container5 {
+    background-image: url('../static/hand_exercise_gif/thumb_strech.gif');
+    background-position: center center;
+
   }
 
 
@@ -77,54 +92,51 @@ h1, h3 {
     </style>
 </head>
 <body>
+    <div style = "float: left">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <h3 class="mt-5">Physical Therapy!</h3>
-                <img src="{{ url_for('video_feed') }}" width="70%" alt="Live Video Stream">
+                <h1 class="mt-5">Physical Therapy</h1>
+                <img src="{{ url_for('video_feed') }}" width="175%" alt="Live Video Stream">
             </div>
         </div>
     </div>
-
-    <table border="1">
-        <tr>
-            <td></td>
-            <td class="image-container1"></td>
-            <td id="dynamic-value1"></td>
-
-        </tr>
-        <tr>
-            <td></td>
-            <td class="image-container2"></td>
-            <td id="dynamic-value2"></td>
-
-        </tr>
-        <tr>
-            <td></td>
-            <td class="image-container3"></td>
-            <td id="dynamic-value3"></td>
-
-        </tr>
-        <tr>
-            <td></td>
-            <td class="image-container4"></td>
-            <td id="dynamic-value4"></td>
-
-        </tr>
-        <tr>
-            <td></td>
-            <td class="image-container5"></td>
-            <td id="dynamic-value5"></td>
-        </tr>
-    </table>
-
-    <div class="content">
-
-        <h1>Dynamic Value:</h1>
-        <p id="dynamic-value"></p>
-
     </div>
 
+
+    <div style=" float: right">
+    <table border="1">
+        <tr>
+            <td>FINGER TAPS</td>
+            <td class="image-container1"></td>
+            <td id="dynamic-value1">/10</td>
+
+        </tr>
+        <tr>
+            <td>POWER GRIP</td>
+            <td class="image-container2"></td>
+            <td id="dynamic-value2" style="width: 40px">/10</td>
+
+        </tr>
+        <tr>
+            <td>WRIST FLEX</td>
+            <td class="image-container3"></td>
+            <td id="dynamic-value3" style="width: 40px">/10</td>
+
+        </tr>
+        <tr>
+            <td>FINGER STRETCH</td>
+            <td class="image-container4"></td>
+            <td id="dynamic-value4" style="width: 40px">/10</td>
+
+        </tr>
+        <tr>
+            <td>THUMB STRETCH</td>
+            <td class="image-container5"></td>
+            <td id="dynamic-value5" style="width: 40px">/10</td>
+        </tr>
+    </table>
+    </div>
 
     <script>
 
