@@ -28,10 +28,10 @@ def gen_frames():  # generate frame by frame from camera
             break
         else:
             if len(lmList) != 0:
-                if ((abs(lmList[0][2] - lmList[8][2]) < 100) and (abs(lmList[0][1] - lmList[8][1]) < 100)) and ((abs(lmList[0][2] - lmList[12][2]) < 100) and (abs(lmList[0][1] - lmList[12][1]) < 100)) and ((abs(lmList[0][2] - lmList[16][2]) < 100) and (abs(lmList[0][1] - lmList[16][1]) < 100)) and ((abs(lmList[0][2] - lmList[20][2]) < 100) and (abs(lmList[0][1] - lmList[20][1]) < 100)):
+                if ((abs(lmList[0][2] - lmList[8][2]) < 150) and (abs(lmList[0][1] - lmList[8][1]) < 150)) and ((abs(lmList[0][2] - lmList[12][2]) < 150) and (abs(lmList[0][1] - lmList[12][1]) < 150)) and ((abs(lmList[0][2] - lmList[16][2]) < 105) and (abs(lmList[0][1] - lmList[16][1]) < 150)) and ((abs(lmList[0][2] - lmList[20][2]) < 150) and (abs(lmList[0][1] - lmList[20][1]) < 150)):
                     print("PALM")
                     previousIndex = 1
-                elif ((abs(lmList[8][1] - lmList[12][1]) > 70) and (abs(lmList[12][1] - lmList[16][1]) > 70) and (abs(lmList[16][1] - lmList[20][1]) > 70)):
+                elif ((abs(lmList[8][1] - lmList[12][1]) > 130) and (abs(lmList[12][1] - lmList[16][1]) > 130) and (abs(lmList[16][1] - lmList[20][1]) > 130)):
                     print("Finger Stretch")
                     previousIndex = 3
                 elif ((abs(lmList[4][2] - lmList[17][2]) < 50) and (abs(lmList[4][1] - lmList[17][1]) < 50)):
@@ -67,6 +67,11 @@ def gen_frames():  # generate frame by frame from camera
                         print(touchFinger[previousIndex] + ": " + str(touchTimes[previousIndex]))
                     previousIndex = -1
                     print("NOT TOUCHING")
+                complete = True
+                for element in touchTimes:
+                    if element < 10:
+                        complete = False
+                #if complete:
             ret, buffer = cv2.imencode('.jpg', image)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'

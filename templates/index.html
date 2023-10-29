@@ -31,7 +31,7 @@ h1, h3 {
 }
 
 .image-container1, .image-container2, .image-container3, .image-container4, .image-container5 {
-    width: 150px;
+    width: 200px;
     height: 150px;
     background-size: cover;
     transition: background-image 0.5s;
@@ -92,51 +92,51 @@ h1, h3 {
     </style>
 </head>
 <body>
-    <div style = "float: left">
+  <h1 class="mt-5"><h1>Physical Therapy</h1></h1>
+    <table>
+    <td>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <h1 class="mt-5">Physical Therapy</h1>
-                <img src="{{ url_for('video_feed') }}" width="175%" alt="Live Video Stream">
+                <img src="{{ url_for('video_feed') }}" width="100%" alt="Live Video Stream">
             </div>
         </div>
     </div>
-    </div>
+  </td>
 
-
-    <div style=" float: right">
+<td>
     <table border="1">
         <tr>
-            <td>FINGER TAPS</td>
+            <td style><h3>FINGER TAPS</h3></td>
             <td class="image-container1"></td>
-            <td id="dynamic-value1">/10</td>
+            <td id="dynamic-value1"> /10</td>
 
         </tr>
         <tr>
-            <td>POWER GRIP</td>
+            <td style><h3>POWER GRIP</h3></td>
             <td class="image-container2"></td>
-            <td id="dynamic-value2" style="width: 40px">/10</td>
+            <td id="dynamic-value2" style="width: 40px"> /10</td>
 
         </tr>
         <tr>
-            <td>WRIST FLEX</td>
+            <td style><h3>WRIST FLEX</h3></td>
             <td class="image-container3"></td>
-            <td id="dynamic-value3" style="width: 40px">/10</td>
+            <td id="dynamic-value3" style="width: 40px"> /10</td>
 
         </tr>
         <tr>
-            <td>FINGER STRETCH</td>
+            <td style><h3>FINGER STRETCH</h3></td>
             <td class="image-container4"></td>
-            <td id="dynamic-value4" style="width: 40px">/10</td>
+            <td id="dynamic-value4" style="width: 40px"> /10</td>
 
         </tr>
         <tr>
-            <td>THUMB STRETCH</td>
+            <td style><h3>THUMB STRETCH</h3></td>
             <td class="image-container5"></td>
-            <td id="dynamic-value5" style="width: 40px">/10</td>
+            <td id="dynamic-value5" style="width: 40px"> /10</td>
         </tr>
     </table>
-    </div>
+  </td>
 
     <script>
 
@@ -144,12 +144,15 @@ h1, h3 {
         fetch('/update')
     .then(response => response.text())
     .then(data => {
-        document.getElementById('dynamic-value1').innerText = data[1];
-        document.getElementById('dynamic-value2').innerText = data[3];
-        document.getElementById('dynamic-value3').innerText = data[5];
-        document.getElementById('dynamic-value4').innerText = data[7];
-        document.getElementById('dynamic-value5').innerText = data[9];
+      const data1 = data.split(',');
+        document.getElementById('dynamic-value1').innerText = data1[0].slice(1);
+        document.getElementById('dynamic-value2').innerText = data1[1];
+        document.getElementById('dynamic-value3').innerText = data1[2];
+        document.getElementById('dynamic-value4').innerText = data1[3];
+        document.getElementById('dynamic-value5').innerText = data1[4].substring(0, data1[4].length - 1);
+        //if (data1[0].slice(1) >= 10 and 
     });
+    
 }
         setInterval(updateValue, 1000)
     </script>
