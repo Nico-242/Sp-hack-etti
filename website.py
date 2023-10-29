@@ -11,9 +11,10 @@ camera = cv2.VideoCapture(0)  # use 0 for web camera
 def gen_frames():  # generate frame by frame from camera
     tracker = handTracker()
 
+    fingerTaps = 0
     previousIndex = -1
     touchTimes = [0,0,0,0,0]
-    touchFinger = ["Index","Middle","Ring","Pinky", "All"]
+    touchFinger = ["Finger Taps","Power Grip","Wrist Flex","Finger Stretch", "Thumb Stretch"]
     while True:
         # Capture frame-by-frame
         success, image = camera.read()  # read the camera frame
@@ -24,25 +25,43 @@ def gen_frames():  # generate frame by frame from camera
             break
         else:
             if len(lmList) != 0:
-                if ((abs(lmList[0][2] - lmList[8][2]) < 170) and (abs(lmList[0][1] - lmList[8][1]) < 170)) and ((abs(lmList[0][2] - lmList[12][2]) < 120) and (abs(lmList[0][1] - lmList[12][1]) < 120)) and ((abs(lmList[0][2] - lmList[16][2]) < 120) and (abs(lmList[0][1] - lmList[16][1]) < 120)) and ((abs(lmList[0][2] - lmList[20][2]) < 170) and (abs(lmList[0][1] - lmList[20][1]) < 170)):
+                if ((abs(lmList[0][2] - lmList[8][2]) < 200) and (abs(lmList[0][1] - lmList[8][1]) < 200)) and ((abs(lmList[0][2] - lmList[12][2]) < 200) and (abs(lmList[0][1] - lmList[12][1]) < 200)) and ((abs(lmList[0][2] - lmList[16][2]) < 200) and (abs(lmList[0][1] - lmList[16][1]) < 200)) and ((abs(lmList[0][2] - lmList[20][2]) < 200) and (abs(lmList[0][1] - lmList[20][1]) < 200)):
                     print("PALM")
+                    previousIndex = 1
+                elif ((abs(lmList[8][1] - lmList[12][1]) > 120) and (abs(lmList[12][1] - lmList[16][1]) > 120) and (abs(lmList[16][1] - lmList[20][1]) > 120)):
+                    print("Finger Stretch")
+                    previousIndex = 3
+                elif ((abs(lmList[4][2] - lmList[17][2]) < 50) and (abs(lmList[4][1] - lmList[17][1]) < 50)):
+                    print("Thumb Stretch")
                     previousIndex = 4
+                elif (lmList[0][2] - lmList[4][2]) < 50:
+                    print("WRIST FLEX")
+                    previousIndex = 2
                 elif (abs(lmList[8][2] - lmList[4][2]) < 50) and (abs(lmList[8][1] - lmList[4][1]) < 50):
                     print("INDEX")
-                    previousIndex = 0
+                    fingerTaps = 1
                 elif (abs(lmList[12][2] - lmList[4][2]) < 50) and (abs(lmList[12][1] - lmList[4][1]) < 50):
                     print("MIDDLE")
-                    previousIndex = 1
+                    if (fingerTaps == 1):
+                        fingerTaps = 2
+                    else:
+                        previousIndex = -1
                 elif (abs(lmList[16][2] - lmList[4][2]) < 50) and (abs(lmList[16][1] - lmList[4][1]) < 50):
                     print("RING")
-                    previousIndex = 2
+                    if (fingerTaps == 2):
+                        fingerTaps = 3
+                    else:
+                        previousIndex = -1
                 elif (abs(lmList[20][2] - lmList[4][2]) < 70) and (abs(lmList[20][1] - lmList[4][1]) < 70):
                     print("PINKY")
-                    previousIndex = 3
+                    if (fingerTaps == 3):
+                        previousIndex = 0
+                    else:
+                        previousIndex = -1
                 else:
                     if previousIndex >= 0:
                         touchTimes[previousIndex]  = touchTimes[previousIndex] + 1
-                        print(touchFinger[previousIndex] + " finger touches: " + str(touchTimes[previousIndex]))
+                        print(touchFinger[previousIndex] + ": " + str(touchTimes[previousIndex]))
                     previousIndex = -1
                     print("NOT TOUCHING")
             ret, buffer = cv2.imencode('.jpg', image)
